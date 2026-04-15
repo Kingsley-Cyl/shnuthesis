@@ -5,6 +5,8 @@
 - 修改cls文件，保留了封面、声明页的生成接口\maketitle和\makestatement。
 - 修改了相关参数，确保进一步实现“20磅行距”的要求。
 
+感谢原作者的[andy123t](https://github.com/andy123t/shnuthesis)的出色工作，感谢Janice参与修改。
+
 ## 原作者说明
 
 上海师范大学研究生毕业论文 LaTeX 模板
