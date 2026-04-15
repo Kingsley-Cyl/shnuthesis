@@ -455,65 +455,6 @@
 \newcommand{\covergapthree}[1]{\setlength{\shnu@gapbeforeinfo}{#1}}
 \newcommand{\coverdategap}[1]{\setlength{\shnu@coverdategap}{#1}}
 
-% \renewcommand{\maketitle}[1][15em]{%
-%     \clearpage
-%     \phantomsection
-%     \pdfbookmark[0]{封~~面}{cover}
-%     \thispagestyle{empty}%
-%     \begin{center}%
-%         \vspace*{-1.8\baselineskip}%
-
-%         % {\hfill 学校代码：\shnu@shnucode \hspace*{8cm} 学号：\shnu@studentID \hfill}%
-%         {\hfill \zihao{5} 学校代码：\shnu@shnucode}%
-
-%         \vspace*{\fill}%
-
-%         \vspace*{2.5\baselineskip}%
-
-%         \includegraphics[width=10cm]{\logopic}%
-
-%         \vspace*{1.0\baselineskip}%
-
-%         \setlength{\parskip}{0.5em}
-        
-%         {\fontsize{40bp}{40bp}\selectfont{\fangsong \shnu@thesisname}}%
-
-%         \vspace*{0.2\baselineskip}%
-        
-%         {\fontsize{22bp}{22bp}\selectfont\ziju{0.5}{\boldsong\bfseries （学术学位）}}%
-
-%         \vspace*{0.15\baselineskip}%
-        
-%         \parbox[t]{\linewidth}{\centering\zihao{2}\sffamily\heiti\@title}%
-        
-%         \vspace*{0.5\baselineskip}%
-        
-%         \parbox[t]{\linewidth}{\centering\zihao{2}\sffamily\shnu@entitle}%
-
-%         \setlength{\parskip}{0em}
-%         \vspace*{1.5\baselineskip}%
-
-%         {\zihao{4}\heiti\renewcommand\arraystretch{1.6}%
-%         \begin{tabular}{lc}
-%             \makebox[7em][s]{学\hfill 生 \hfill 姓\hfill 名~：} & \underline{\makebox[#1]{\@author}} \\
-%             \makebox[7em][s]{学\hfill 号~：} & \underline{\makebox[#1]{\shnu@studentID}} \\
-%             % \makebox[7em][s]{导\hfill 师\hfill 姓\hfill 名\hfill 、\hfill 职\hfill 称：} & \underline{\makebox[#1]{\shnu@advisor}} \\
-%             \multicolumn{2}{l}{%
-%               \makebox[11.5em][s]{导\hfill 师\hfill 姓\hfill 名\hfill 、\hfill 职\hfill 称：}\hspace{0.5em}%
-%               \underline{\makebox[11em]{\shnu@advisor}}%
-%             }\\
-%             \makebox[7em][s]{学\hfill 科\hfill 专\hfill 业~：} & \underline{\makebox[#1]{\shnu@major}} \\
-%             \makebox[7em][s]{研\hfill 究\hfill 方 \hfill 向~：} & \underline{\makebox[#1]{\shnu@research}} \\
-%             \makebox[7em][s]{培\hfill 养\hfill 单 \hfill 位~：} & \underline{\makebox[#1]{\shnu@institute}} \\
-%             % \makebox[7em][s]{完\hfill 成\hfill 日 \hfill 期~：} & \underline{\makebox[#1]{\@date}} \\
-%             \multicolumn{2}{c}{\zihao{3}\@date}
-%         \end{tabular}}%
-%     \end{center}%
-%     \vspace*{\fill}%
-%     \ifshnu@print\cleardoublepage\else\clearpage\fi
-%     \if@openright\cleardoublepage\fi
-% }
-
 \renewcommand{\maketitle}[1][15em]{%
     \clearpage
     \phantomsection
@@ -554,12 +495,12 @@
 
             \vspace*{0.2\baselineskip}
 
-            {\fontsize{22bp}{26.4bp}\sffamily\heiti
+            {\fontsize{22bp}{29bp}\sffamily\heiti
             \parbox[t]{\linewidth}{\centering \@title}\par}
 
-            \vspace*{0.5\baselineskip}
+            \vspace*{0.7\baselineskip}
 
-            {\fontsize{22bp}{26.4bp}\sffamily
+            {\fontsize{22bp}{30bp}\sffamily
             \parbox[t]{\linewidth}{\centering \shnu@entitle}\par}
         }
 
