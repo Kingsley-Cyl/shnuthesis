@@ -17,6 +17,7 @@
 
 %----- 论文标题、作者、导师、日期等相关信息 -----
 \title{上海师范大学研究生毕业论文 LaTeX 模板, 支持硕士/博士学位论文}
+\entitle{Research on Multi-scale Feature-driven Image Restoration Technology for Adverse Weather Conditions}
 \author{某~~某~~某}   % 作者姓名
 \date{二~~〇~~二~~X~~年~~三~~月 }  % 完成日期
 \institute{学~~院~~名~~称}  % 学院名称
@@ -85,16 +86,16 @@
 
 \begin{document}
 
-% 生成封面页, 已不适应新的论文规范
-%\maketitle
+% 生成封面页,
+\maketitle
 
-% 请插入Word生成的封面 cover.pdf
-\insertcover{cover.pdf}
+% 也可以自行插入Word生成的封面 cover.pdf
+% \insertcover{cover.pdf}
 
-% 生成独创性与授权声明页, 已不适应新的论文规范
-%\makestatement
+% 生成独创性与授权声明页
+% \makestatement
 
-% 请插入Word生成的声明页 statement.pdf
+% 也可以自行插入Word生成的声明页 statement.pdf（一般签字扫描后需要使用以下命令）
 \makestatement[file=statement.pdf]
 
 %=============== 摘要 =================%

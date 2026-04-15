@@ -1,33 +1,30 @@
 %%
 %% This is file `shnuthesis.cls',
 %%
-%% @author andy123t
-%% @date 2026/04/06
-%% @version v4.9
-%% @address https://github.com/andy123t/shnuthesis
+%% @author andy123t, kingsley-cyl, Janice
+%% @date 2026/04/15
+%% @version v4.9-beta
+%% @address https://https://github.com/Kingsley-Cyl/shnuthesis
 %% LaTeX thesis template for Shanghai Normal University
 %%
 
 %---------- 定义的新的Class ----------
-\ProvidesClass{shnuthesis}[2026/04/06 v4.9]
+\ProvidesClass{shnuthesis}[2026/04/15 v4.9-beta]
 \NeedsTeXFormat{LaTeX2e}
 
 %---------- 载入学校logo ----------
-\def\logopic{shnu.pdf}  % SHNU-logo
+\def\logopic{shnu.eps}  % SHNU-logo
 
 %---------- 定义的新的Options ----------
 \newif\ifshnu@master
 \newif\ifshnu@print
 \newif\ifshnu@science
 \newif\ifshnu@arts
-\newif\ifshnu@fonts
-\shnu@fontsfalse
 \DeclareOption{master}{\shnu@mastertrue}
 \DeclareOption{doctor}{\shnu@masterfalse}
 \DeclareOption{print}{\shnu@printtrue}
 \DeclareOption{science}{\shnu@sciencetrue}
 \DeclareOption{arts}{\shnu@artstrue}
-\DeclareOption{fonts}{\shnu@fontstrue}
 \DeclareOption{openany}{\PassOptionsToClass{openany}{ctexbook}}
 \DeclareOption{openright}{\PassOptionsToClass{openright}{ctexbook}}
 \DeclareOption{twoside}{\PassOptionsToClass{twoside}{ctexbook}}
@@ -42,55 +39,14 @@
 % twoside,openright,print 用于打印, 全部双面排版
 %---------------------------------
 
-\ifshnu@science
-  \ifshnu@arts
-    \ClassError{shnuthesis}{Options `science' and `arts' cannot be used together}{}
-  \fi
-\fi
-\ifshnu@science\else
-  \ifshnu@arts\else
-    \ClassWarning{shnuthesis}{Neither `science' nor `arts' specified, using `science' by default}
-    \shnu@sciencetrue
-  \fi
-\fi
-
 %---------- 修改字体宏包Options ----------
 \PassOptionsToPackage{no-math}{fontspec}
 
 %---------- 载入Class ----------
-\ifshnu@fonts
-  \LoadClass[UTF8,a4paper,zihao=-4,fontset=none]{ctexbook}
-\else
-  \LoadClass[UTF8,a4paper,zihao=-4]{ctexbook}
-\fi
+\LoadClass[UTF8,a4paper,zihao=-4]{ctexbook}
 \@ifclasslater{ctexbook}{2017/01/01}{}{%
     \ClassError{shnuthesis}{ctex >= 2017/01/01 is required ...}{}%
 }
-
-\ifshnu@fonts
-  \IfFileExists{fonts/SimSun.ttf}{}{\ClassError{shnuthesis}{Font file `fonts/SimSun.ttf' not found}{}}
-  \IfFileExists{fonts/SimHei.ttf}{}{\ClassError{shnuthesis}{Font file `fonts/SimHei.ttf' not found}{}}
-  \IfFileExists{fonts/KaiTi.ttf}{}{\ClassError{shnuthesis}{Font file `fonts/KaiTi.ttf' not found}{}}
-  \IfFileExists{fonts/FangSong.ttf}{}{\ClassError{shnuthesis}{Font file `fonts/FangSong.ttf' not found}{}}
-
-  \setCJKfamilyfont{zhsong}[Path=fonts/]{SimSun.ttf}
-  \setCJKfamilyfont{zhhei}[Path=fonts/]{SimHei.ttf}
-  \setCJKfamilyfont{zhkai}[Path=fonts/]{KaiTi.ttf}
-  \setCJKfamilyfont{zhfang}[Path=fonts/]{FangSong.ttf}
-
-  \setCJKmainfont{SimSun.ttf}[
-    Path=fonts/,
-    BoldFont=SimHei.ttf,
-    ItalicFont=KaiTi.ttf
-  ]
-  \setCJKsansfont{SimHei.ttf}[Path=fonts/]
-  \setCJKmonofont{FangSong.ttf}[Path=fonts/]
-
-  \providecommand\songti{\CJKfamily{zhsong}}
-  \providecommand\heiti{\CJKfamily{zhhei}}
-  \providecommand\kaishu{\CJKfamily{zhkai}}
-  \providecommand\fangsong{\CJKfamily{zhfang}}
-\fi
 
 %---------- 定义页边距 ----------
 \RequirePackage{geometry}
@@ -106,7 +62,6 @@
 \RequirePackage{amsmath,amssymb,amsthm}
 \RequirePackage{mathrsfs}
 \RequirePackage{graphicx}
-\RequirePackage{array}
 \RequirePackage{tabularx}
 \RequirePackage{booktabs}
 \RequirePackage{float}
@@ -137,10 +92,12 @@
 \shnu@define@term{research}
 \shnu@define@term{studentID}
 \shnu@define@term{advisor}
+\shnu@define@term{entitle}
+
 
 %---------- 定义新变量 ----------
 \newcommand\shnuname{上海师范大学}
-\newcommand\cnabstractname{摘~~要}
+\newcommand\cnabstractname{摘要}
 \newcommand\enabstractname{Abstract}
 \newcommand\denotationname{主要符号表}
 \newcommand\acknowledgementname{致谢}
@@ -203,7 +160,8 @@
 \setcounter{tocdepth}{3}
 
 %---------- 定义章节字号 ----------
-\newcommand{\chapfont}{\fontsize{20bp}{28bp}\selectfont}
+% \newcommand{\chapfont}{\fontsize{20bp}{28bp}\selectfont}
+\newcommand{\chapfont}{\fontsize{16bp}{28bp}\selectfont}
 \newcommand{\secfont}{\fontsize{15bp}{20bp}\selectfont}
 \newcommand{\subsecfont}{\fontsize{14bp}{20bp}\selectfont}
 \newcommand{\ssubsecfont}{\fontsize{12bp}{18bp}\selectfont}
@@ -214,7 +172,7 @@
 %--- chapter ---
 \ctexset{%
     chapter = {
-        format = \linespread{1.0}\sffamily\heiti\chapfont\centering,
+        format = {\linespread{1.0}\sffamily\boldhei\bfseries\chapfont\centering},
         nameformat = {},
         titleformat = {},
         number = \arabic{chapter},
@@ -225,23 +183,23 @@
         pagestyle = plain,
     },
     section = {
-        format = \linespread{1.0}\sffamily\heiti\zihao{-3}\raggedright,
+        format = {\linespread{1.0}\sffamily\heiti\zihao{-3}\raggedright},
         numberformat = {},
-        aftername = \quad,
+        aftername = \enspace,
         beforeskip = {24pt},
         afterskip = {6pt},
     },
     subsection = {
-        format = \linespread{1.0}\sffamily\heiti\zihao{4}\raggedright,
+        format = {\linespread{1.0}\sffamily\heiti\zihao{4}\raggedright},
         numberformat = {},
-        aftername = \quad,
+        aftername = \enspace,
         beforeskip = {12pt},
         afterskip = {6pt},
     },
     subsubsection = {
-        format = \linespread{1.0}\sffamily\heiti\zihao{-4}\raggedright,
+        format = {\linespread{1.0}\sffamily\heiti\zihao{-4}\raggedright},
         numberformat = {},
-        aftername = \quad,
+        aftername = \enspace,
         beforeskip = {12pt},
         afterskip = {6pt},
     },
@@ -257,7 +215,7 @@
 %--- chapter ---
 \ctexset{%
     chapter = {
-        format = \linespread{1.0}\sffamily\heiti\chapfont\centering,
+        format = {\linespread{1.0}\sffamily\heiti\chapfont\centering},
         nameformat = {},
         titleformat = {},
         number = \chinese{chapter},
@@ -268,7 +226,7 @@
         pagestyle = plain,
     },
     section = {
-        format = \linespread{1.0}\sffamily\heiti\zihao{-3}\centering,
+        format = {\linespread{1.0}\sffamily\heiti\zihao{-3}\centering},
         name = {第,节},
         number = \chinese{section},
         numberformat = \heiti,
@@ -277,7 +235,7 @@
         afterskip = {6pt},
     },
     subsection = {
-        format = \linespread{1.0}\sffamily\heiti\zihao{4}\raggedright,
+        format = {\linespread{1.0}\sffamily\heiti\zihao{4}\raggedright},
         number = \chinese{subsection},
         numberformat = \heiti,
         aftername = \quad,
@@ -285,7 +243,7 @@
         afterskip = {6pt},
     },
     subsubsection = {
-        format = \linespread{1.0}\sffamily\heiti\zihao{-4}\raggedright,
+        format = {\linespread{1.0}\sffamily\heiti\zihao{-4}\raggedright},
         name = {（,）},
         number = \chinese{subsubsection},
         numberformat = \heiti,
@@ -336,12 +294,9 @@
 
 %---------- 设置页脚样式 ----------
 \newcommand{\footstyle}{%
-    \if@twoside
-        \fancyfoot[LE]{\zihao{5}\thepage}
-        \fancyfoot[RO]{\zihao{5}\thepage}
-    \else
-        \fancyfoot[C]{\zihao{5}\thepage}
-    \fi
+    %\fancyfoot[C]{\zihao{5}\thepage}
+    \fancyfoot[LE]{\zihao{5}\thepage}
+    \fancyfoot[RO]{\zihao{5}\thepage}
 }
 
 \fancypagestyle{plain}{%
@@ -354,9 +309,12 @@
 
 %---------- 中文段落缩进和行距 ----------
 \setlength{\parindent}{2\ccwd}
-\setlength{\parskip}{4pt plus 1pt minus 1pt}
-\linespread{1.35}  % 设置行距
-%\renewcommand{\baselinestretch}{1.35}
+% \setlength{\parskip}{4pt plus 1pt minus 1pt}
+\setlength{\parskip}{0pt}
+\linespread{1.38}  % 设置行距
+\renewcommand{\baselinestretch}{1.38}
+% \setlength{\baselineskip}{20bp}
+\renewcommand{\arraystretch}{1.2}
 
 %---------- 浮动对象设置 ----------
 \renewcommand{\textfraction}{0.15}
@@ -367,19 +325,21 @@
 %---------- 设置图表格式 ----------
 \numberwithin{figure}{chapter}
 \numberwithin{table}{chapter}
-%\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
-%\renewcommand{\thetable}{\thechapter.\arabic{table}}
+\renewcommand{\thefigure}{\thechapter-\arabic{figure}}
+\renewcommand{\thetable}{\thechapter-\arabic{table}}
 
 %---------- 设置图片和表格样式 ----------
 \RequirePackage{caption}
-\captionsetup{font={small},labelformat={default},labelsep=quad}
+\captionsetup{font={small,singlespacing},labelformat={default},labelsep=space}
 \captionsetup[figure]{position=bottom,skip={6pt},name={图}}
 \captionsetup[table]{position=top,skip={3pt},name={表}}
 \setlength{\textfloatsep}{12pt plus 2pt minus 2pt}
 \setlength{\floatsep}{10pt plus 2pt minus 2pt}
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
-%\setlength{\abovecaptionskip}{2pt plus 1pt minus 1pt}
-%\setlength{\belowcaptionskip}{3pt plus 1pt minus 2pt}
+\setlength{\abovecaptionskip}{2pt plus 1pt minus 1pt}
+\setlength{\belowcaptionskip}{3pt plus 1pt minus 2pt}
+% \setlength{\abovecaptionskip}{6pt}
+% \setlength{\belowcaptionskip}{6pt}
 
 %---------- 重新设置图表autoref ----------
 \renewcommand{\figureautorefname}{图}
@@ -457,6 +417,7 @@
 
 %---------- 公式编号带章节 ----------
 \numberwithin{equation}{chapter}
+\renewcommand{\theequation}{\thechapter-\arabic{equation}}
 
 %---------- 重新设置公式autoref ----------
 \renewcommand{\equationautorefname}{公式}
@@ -470,46 +431,165 @@
 \setlist[biblist]{leftmargin=*,label={[\arabic*]}}
 
 %---------- 定义新的标题页面 ----------
+% \setCJKmainfont{SimSun}[AutoFakeBold,AutoFakeSlant]
+\newCJKfontfamily\boldsong{SimSun}[AutoFakeBold=3]
+\newCJKfontfamily\boldhei{SimHei}[AutoFakeBold=3]
+\newCJKfontfamily\boldfang{FangSong}[AutoFakeBold=3]
+
+% \newCJKfontfamily[CJKfamily名称]\自定义名称{字体名称}[粗体,斜体设置]
+
+%---------- 封面垂直布局长度 ----------
+\newlength{\shnu@gapbeforelogo}      % 区域1：学校代码到logo之间
+\newlength{\shnu@coverlogogap}     % logo后固定小间距
+\newlength{\shnu@gapbeforeinfo}    % 区域3：标题块到信息表之间
+\newlength{\shnu@coverdategap}     % 信息表到日期之间
+
+\setlength{\shnu@gapbeforelogo}{2cm}
+\setlength{\shnu@coverlogogap}{0.8cm}
+\setlength{\shnu@gapbeforeinfo}{1.6cm}
+\setlength{\shnu@coverdategap}{0.5cm}
+
+% 用户接口（可选）
+\newcommand{\covergapone}[1]{\setlength{\shnu@gapbeforelogo}{#1}}
+\newcommand{\coverlogogap}[1]{\setlength{\shnu@coverlogogap}{#1}}
+\newcommand{\covergapthree}[1]{\setlength{\shnu@gapbeforeinfo}{#1}}
+\newcommand{\coverdategap}[1]{\setlength{\shnu@coverdategap}{#1}}
+
+% \renewcommand{\maketitle}[1][15em]{%
+%     \clearpage
+%     \phantomsection
+%     \pdfbookmark[0]{封~~面}{cover}
+%     \thispagestyle{empty}%
+%     \begin{center}%
+%         \vspace*{-1.8\baselineskip}%
+
+%         % {\hfill 学校代码：\shnu@shnucode \hspace*{8cm} 学号：\shnu@studentID \hfill}%
+%         {\hfill \zihao{5} 学校代码：\shnu@shnucode}%
+
+%         \vspace*{\fill}%
+
+%         \vspace*{2.5\baselineskip}%
+
+%         \includegraphics[width=10cm]{\logopic}%
+
+%         \vspace*{1.0\baselineskip}%
+
+%         \setlength{\parskip}{0.5em}
+        
+%         {\fontsize{40bp}{40bp}\selectfont{\fangsong \shnu@thesisname}}%
+
+%         \vspace*{0.2\baselineskip}%
+        
+%         {\fontsize{22bp}{22bp}\selectfont\ziju{0.5}{\boldsong\bfseries （学术学位）}}%
+
+%         \vspace*{0.15\baselineskip}%
+        
+%         \parbox[t]{\linewidth}{\centering\zihao{2}\sffamily\heiti\@title}%
+        
+%         \vspace*{0.5\baselineskip}%
+        
+%         \parbox[t]{\linewidth}{\centering\zihao{2}\sffamily\shnu@entitle}%
+
+%         \setlength{\parskip}{0em}
+%         \vspace*{1.5\baselineskip}%
+
+%         {\zihao{4}\heiti\renewcommand\arraystretch{1.6}%
+%         \begin{tabular}{lc}
+%             \makebox[7em][s]{学\hfill 生 \hfill 姓\hfill 名~：} & \underline{\makebox[#1]{\@author}} \\
+%             \makebox[7em][s]{学\hfill 号~：} & \underline{\makebox[#1]{\shnu@studentID}} \\
+%             % \makebox[7em][s]{导\hfill 师\hfill 姓\hfill 名\hfill 、\hfill 职\hfill 称：} & \underline{\makebox[#1]{\shnu@advisor}} \\
+%             \multicolumn{2}{l}{%
+%               \makebox[11.5em][s]{导\hfill 师\hfill 姓\hfill 名\hfill 、\hfill 职\hfill 称：}\hspace{0.5em}%
+%               \underline{\makebox[11em]{\shnu@advisor}}%
+%             }\\
+%             \makebox[7em][s]{学\hfill 科\hfill 专\hfill 业~：} & \underline{\makebox[#1]{\shnu@major}} \\
+%             \makebox[7em][s]{研\hfill 究\hfill 方 \hfill 向~：} & \underline{\makebox[#1]{\shnu@research}} \\
+%             \makebox[7em][s]{培\hfill 养\hfill 单 \hfill 位~：} & \underline{\makebox[#1]{\shnu@institute}} \\
+%             % \makebox[7em][s]{完\hfill 成\hfill 日 \hfill 期~：} & \underline{\makebox[#1]{\@date}} \\
+%             \multicolumn{2}{c}{\zihao{3}\@date}
+%         \end{tabular}}%
+%     \end{center}%
+%     \vspace*{\fill}%
+%     \ifshnu@print\cleardoublepage\else\clearpage\fi
+%     \if@openright\cleardoublepage\fi
+% }
+
 \renewcommand{\maketitle}[1][15em]{%
     \clearpage
     \phantomsection
-    \pdfbookmark[0]{封~~面}{shnucover}
+    \pdfbookmark[0]{封~~面}{cover}
     \thispagestyle{empty}%
-    \begin{center}%
-        \vspace*{-1.8\baselineskip}%
 
-        \noindent%
-        \makebox[\textwidth]{%
-        学校代码：\shnu@shnucode \hfill 学号：\shnu@studentID
-        }%
+    % 封面单独控制，不受正文 \linespread 影响
+    \begingroup
+    \linespread{1.0}\selectfont
+    \setlength{\parskip}{0pt}%
 
-        \vspace*{\fill}%
+    \noindent
+    \vbox to \textheight{%
+        %---------------- 顶部：学校代码 ----------------
+        {\noindent\hfill \zihao{5} 学校代码：\shnu@shnucode\par}
 
-        \vspace*{3.0\baselineskip}%
+        %---------------- 区域1：固定 ----------------
+        \vspace*{\shnu@gapbeforelogo}
 
-        \includegraphics[width=10cm]{\logopic}%
+        %---------------- logo ----------------
+        {\centering
+        \includegraphics[width=10cm]{\logopic}\par}
 
-        \vspace*{1.0\baselineskip}%
+        % logo 和标题块之间的一个固定小间距
+        \vspace*{\shnu@coverlogogap}
 
-        {\fontsize{40bp}{40bp}\selectfont\shnu@thesisname}%
+        %---------------- 区域2：唯一弹性区 ----------------
+        \vspace{0pt plus 1fill}
 
-        \vspace*{2.5\baselineskip}%
+        %---------------- 标题块（高度可变） ----------------
+        {\centering
+            {\fontsize{40bp}{48bp}\selectfont\fangsong \shnu@thesisname\par}
 
-        \parbox[t]{\linewidth}{\centering\zihao{1}\sffamily\heiti\@title}%
+            \vspace*{0.2\baselineskip}
 
-        \vspace*{3.0\baselineskip}%
+            {\fontsize{22bp}{26.4bp}\selectfont
+            \ziju{0.5}{\boldsong\bfseries （学术学位）}\par}
 
-        {\zihao{3}\heiti\renewcommand\arraystretch{1.6}%
+            \vspace*{0.2\baselineskip}
+
+            {\fontsize{22bp}{26.4bp}\sffamily\heiti
+            \parbox[t]{\linewidth}{\centering \@title}\par}
+
+            \vspace*{0.5\baselineskip}
+
+            {\fontsize{22bp}{26.4bp}\sffamily
+            \parbox[t]{\linewidth}{\centering \shnu@entitle}\par}
+        }
+
+        %---------------- 区域3：固定 ----------------
+        \vspace*{\shnu@gapbeforeinfo}
+
+        %---------------- 底部信息块 ----------------
+        {\centering
+        {\zihao{4}\heiti
+        \renewcommand\arraystretch{2}%
         \begin{tabular}{lc}
-            \makebox[7em][s]{学\hfill 院~：} & \underline{\makebox[#1]{\shnu@institute}} \\
-            \makebox[7em][s]{专\hfill 业~：} & \underline{\makebox[#1]{\shnu@major}} \\
+            \makebox[7em][s]{学\hfill 生 \hfill 姓\hfill 名~：} & \underline{\makebox[#1]{\@author}} \\
+            \makebox[7em][s]{学\hfill 号~：} & \underline{\makebox[#1]{\shnu@studentID}} \\
+            \multicolumn{2}{l}{%
+              \makebox[11.5em][s]{导\hfill 师\hfill 姓\hfill 名\hfill 、\hfill 职\hfill 称：}\hspace{0.5em}%
+              \underline{\makebox[11em]{\shnu@advisor}}%
+            }\\
+            \makebox[7em][s]{学\hfill 科\hfill 专\hfill 业~：} & \underline{\makebox[#1]{\shnu@major}} \\
             \makebox[7em][s]{研\hfill 究\hfill 方 \hfill 向~：} & \underline{\makebox[#1]{\shnu@research}} \\
-            \makebox[7em][s]{研\hfill 究\hfill 生 \hfill 姓\hfill 名~：} & \underline{\makebox[#1]{\@author}} \\
-            \makebox[7em][s]{指\hfill 导\hfill 教 \hfill 师~：} & \underline{\makebox[#1]{\shnu@advisor}} \\
-            \makebox[7em][s]{完\hfill 成\hfill 日 \hfill 期~：} & \underline{\makebox[#1]{\@date}} \\
-        \end{tabular}}%
-    \end{center}%
-    \vspace*{\fill}%
+            \makebox[7em][s]{培\hfill 养\hfill 单 \hfill 位~：} & \underline{\makebox[#1]{\shnu@institute}} \\
+        \end{tabular}\par}
+
+        \vspace*{\shnu@coverdategap}
+
+        {\zihao{3}\@date\par}}
+
+        \vspace*{\baselineskip}
+    }%
+    \endgroup
+
     \ifshnu@print\cleardoublepage\else\clearpage\fi
     \if@openright\cleardoublepage\fi
 }
@@ -518,47 +598,45 @@
 \newcommand{\makestatement}[1][]{%
     \clearpage
     \phantomsection
-    \pdfbookmark[0]{声明页}{shnustatement}
+    \pdfbookmark[0]{声明页}{statement}
     \def\shnu@tmp{#1}
     \ifx\shnu@tmp\@empty
     \thispagestyle{empty}%
     {%
-        \linespread{1.6}\selectfont
-        \ziju{0.03}
-
-        \vspace*{0.2\baselineskip}%
-
+        \setlength{\parskip}{0em}
+        \linespread{2}\fangsong
+        \zihao{4}
+        
         \begin{center}
-            {\heiti \chapfont 论文独创性声明}
+            {\boldfang \zihao{3} \bfseries 学位论文原创性声明}
         \end{center}
 
-        \vspace*{\baselineskip}%
+        % \vspace*{-\baselineskip}%
+        本人郑重声明：将遵守国家、学校和学院的学术道德规范，对提交的学位论文全部内容负责，并承担相应法律与道德责任。本论文是本人在导师指导下进行的研究工作及取得的研究成果。论文中除了特别加以标注和致谢的地方外，不包含其他人或机构已经发表或撰写过的研究成果；未在学位论文的研究设计、论文撰写、结果讨论等核心环节使用生成式人工智能。他人对本研究的启发和所做的贡献，均已在论文中做了明确的声明并表示了谢意。 
 
-        本论文是我个人在导师指导下进行的研究工作及取得的研究成果。论文中除了特别加以标注和致谢的地方外，不包含其他人或机构已经发表或撰写过的研究成果。其他同志对本研究的启发和所做的贡献均已在论文中做了明确的声明并表示了谢意。
+        % \vspace*{2.4\baselineskip}%
+        \hspace*{1.5cm} \hfill \raisebox{4pt}{作者签名：} \hspace*{5em}  \raisebox{4pt}{日期：\hspace*{2em}年\hspace*{2em}月\hspace*{2em}日}%
 
-        \vspace*{2.4\baselineskip}%
-
-        \hspace*{1.5cm} \raisebox{4pt}{作者签名：} \hrulefill \hspace*{4em} \raisebox{4pt}{日\hspace*{2em}期：}\hrulefill \hspace*{0.5cm}%
-
-        \vspace*{4.0\baselineskip}%
+        % \vspace*{4.0\baselineskip}%
+        \vfill%
 
         \begin{center}
-            {\heiti \chapfont 论文使用授权声明}
+            {\boldfang \zihao{3} \bfseries 学位论文使用授权声明}
         \end{center}
 
-        \vspace*{\baselineskip}%
+        % \vspace*{\baselineskip}%
 
         本人完全了解上海师范大学有关保留、使用学位论文的规定，即：学校有权保留送交论文的复印件，允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，可以采用影印、缩印或其它手段保存论文。暂缓出版的论文在公开后遵守此规定。
 
-        \vspace*{2.4\baselineskip}%
+        % \vspace*{2.4\baselineskip}%
 
-        \hspace*{1.5cm} \raisebox{4pt}{作者签名：} \hrulefill \hspace*{4em} \raisebox{4pt}{导师签名：} \hrulefill \hspace*{0.5cm}%
+       \noindent\raisebox{4pt}{作者签名：}  \hspace*{4em} \raisebox{4pt}{导师签名：} \hfill \raisebox{4pt}{日期：\hspace*{2em}年\hspace*{2em}月\hspace*{2em}日}%
         
-        \vspace*{0.25\baselineskip}%
+        % \vspace*{0.25\baselineskip}%
 
-        \hspace*{1.5cm} \raisebox{4pt}{日\hspace*{2em}期：} \hrulefill \hspace*{4em} \raisebox{4pt}{日\hspace*{2em}期：} \hrulefill \hspace*{0.5cm}%
+        % \hspace*{1.5cm} \raisebox{4pt}{日\hspace*{2em}期：} \hrulefill \hspace*{4em} \raisebox{4pt}{日\hspace*{2em}期：} \hrulefill \hspace*{0.5cm}%
         
-        \vspace*{2.0\baselineskip}%
+        % \vspace*{2.0\baselineskip}%
     }%
     \else
         \kv@define@key{shnu@statement}{file}{\includepdf{\kv@value}}%
@@ -596,12 +674,12 @@
 %---------- 定义中英文关键词 ----------
 \newcommand{\cnkeywords}[1]{%
     \vspace*{0.8\baselineskip}\par
-    \noindent {\bfseries 关键词:~} #1%
+    {\bfseries \boldsong 关键词:~} #1%
 }
 
 \newcommand{\enkeywords}[1]{%
     \vspace*{0.8\baselineskip}\par
-    \noindent {\bfseries Key Words:~} #1%
+    {\bfseries Key Words:~} #1%
 }
 
 %---------- 中英文摘要环境 ----------
@@ -609,8 +687,8 @@
     \clearpage
     \pagestyle{plain}%
     \phantomsection
-    \chapter*{\cnabstractname}
     \addcontentsline{toc}{chapter}{\cnabstractname}
+    \chapter*{\cnabstractname}
     \chaptermark{\cnabstractname}
 }{%
     \clearpage
@@ -620,8 +698,8 @@
     \clearpage
     \pagestyle{plain}%
     \phantomsection
-    \chapter*{\rmfamily\bfseries\enabstractname}
     \addcontentsline{toc}{chapter}{\enabstractname}
+    \chapter*{\enabstractname}
     \chaptermark{\enabstractname}
 }{%
     \clearpage
@@ -630,23 +708,27 @@
 
 %---------- 目录格式设置 ----------
 \RequirePackage{tocloft}
-\renewcommand{\cfttoctitlefont}{\hfill\heiti\chapfont}
+\RequirePackage{setspace}
+\renewcommand{\cfttoctitlefont}{\hfill\boldhei\bfseries\chapfont}
 \renewcommand{\cftaftertoctitle}{\hfill}
 \renewcommand{\cftloftitlefont}{\hfill\heiti\chapfont}
 \renewcommand{\cftafterloftitle}{\hfill}
 \renewcommand{\cftlottitlefont}{\hfill\heiti\chapfont}
 \renewcommand{\cftafterlottitle}{\hfill}
-\renewcommand{\contentsname}{目~~录}
+\renewcommand{\contentsname}{目录}
 \renewcommand{\listfigurename}{插图清单}
 \renewcommand{\listtablename}{表格清单}
 \setlength{\cftbeforetoctitleskip}{8pt}
 \setlength{\cftaftertoctitleskip}{20pt}
-\setlength{\cftbeforechapskip}{10pt plus 2pt minus 2pt}
-\setlength{\cftbeforesecskip}{3pt}
-\setlength{\cftbeforesubsecskip}{3pt}
+% \setlength{\cftbeforechapskip}{10pt plus 2pt minus 2pt}
+% \setlength{\cftbeforesecskip}{3pt}
+% \setlength{\cftbeforesubsecskip}{3pt}
+\setlength{\cftbeforechapskip}{0pt}
+\setlength{\cftbeforesecskip}{0pt}
+\setlength{\cftbeforesubsecskip}{0pt}
 \renewcommand{\cftdot}{$\cdot$}
 \renewcommand{\cftdotsep}{3}
-\renewcommand{\cftchapfont}{\sffamily\heiti}
+\renewcommand{\cftchapfont}{\rmfamily\songti}
 \renewcommand{\cftchapdotsep}{\cftdotsep}
 \renewcommand\cftchapleader{\cftdotfill{\cftchapdotsep}}
 \renewcommand{\cftsecdotsep}{\cftdotsep}
@@ -667,7 +749,10 @@
     \pagestyle{plain}
     \phantomsection
     \addcontentsline{toc}{chapter}{\contentsname}
-    \tableofcontents%
+    {
+        \setlength{\baselineskip}{20pt}\selectfont%
+        \tableofcontents%
+    }
     \clearpage
 }
 
@@ -675,8 +760,8 @@
 \newcommand\makelof{%
     \clearpage
     \phantomsection
-    \chapter*{\listfigurename}
     \addcontentsline{toc}{chapter}{\listfigurename}
+    \chapter*{\listfigurename}
     \chaptermark{\listfigurename}
     \@starttoc{lof}%
     \clearpage
@@ -686,8 +771,8 @@
 \newcommand\makelot{%
     \clearpage
     \phantomsection
-    \chapter*{\listtablename}
     \addcontentsline{toc}{chapter}{\listtablename}
+    \chapter*{\listtablename}
     \chaptermark{\listtablename}
     \@starttoc{lot}%
     \clearpage
@@ -697,8 +782,8 @@
 \newenvironment{denotation}{%
     \clearpage
     \phantomsection
-    \chapter*{\denotationname}
     \addcontentsline{toc}{chapter}{\denotationname}
+    \chapter*{\denotationname}
     \chaptermark{\denotationname}
 }{%
     \clearpage
@@ -719,7 +804,9 @@
 }
 %--- 参考文献间距 ---
 \def\bibfont{\small}
-\setlength{\bibsep}{7pt plus 3pt minus 3pt}
+% \setlength{\bibsep}{7pt plus 3pt minus 3pt}
+\setlength{\baselineskip}{20pt}
+\setlength{\bibsep}{0pt plus 2pt minus 2pt}
 \setlength{\bibhang}{2\ccwd}
 \renewcommand\@biblabel[1]{[#1]\hfill}
 \urlstyle{same}
@@ -744,10 +831,10 @@
 \newenvironment{publications}{%
     \clearpage
     \phantomsection
-    \chapter*{\shnu@publications}
     \addcontentsline{toc}{chapter}{\shnu@publications}
+    \chapter*{\shnu@publications}
     \chaptermark{\shnu@publications}
-    \linespread{1.6}\selectfont
+    % \baselineskip=1.2\baselineskip
 }{%
     \clearpage
 }
@@ -756,10 +843,10 @@
 \newenvironment{acknowledgement}{%
     \clearpage
     \phantomsection
-    \chapter*{\acknowledgementname}
     \addcontentsline{toc}{chapter}{\acknowledgementname}
+    \chapter*{\acknowledgementname}
     \chaptermark{\acknowledgementname}
-    \linespread{1.6}\selectfont
+    % \baselineskip=1.2\baselineskip
 }{%
     \clearpage
     \if@openright\cleardoublepage\fi
